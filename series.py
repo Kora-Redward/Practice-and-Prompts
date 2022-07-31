@@ -15,6 +15,7 @@ def total(math_series):
 
 # Find the mean value of a series
 def mean(math_series):
+    # I'm using the previously established total function to simplify the process.
     seriessum = total(math_series)
     mn = seriessum/len(math_series)
     return mn
@@ -52,10 +53,10 @@ def lowest_value(math_series):
 def low_high(math_series):
     length = len(math_series)
     lh = math_series.copy()
-    #  My initial plan was to use the highest_value() operation to determine the smallest value from one list
-    #  and apply it to a new one, while removing it from the previous list. While it worked in practice, it required
-    #  the series to be redeclared for subsequent operations, so I switched over to a more self contained
-    #  approach with Python swaps.
+    #  My initial plan was to use the smallest_value() operation to determine the smallest value from one list
+    #  and apply it to a new one, while removing it from the previous list. While it worked in practice, the 
+    #  method wiped the series clear, and thus required the series to be redeclared for subsequent operations,
+    #  (copying the list led to implementation errors) so I switched over to a more self contained approach using Python swaps.
     for i1 in range(length):
         for i2 in range(length):
             if lh[i1] < lh[i2]:
@@ -66,7 +67,8 @@ def low_high(math_series):
 # Order the series from high to low
 def high_low(math_series):
     hl = math_series.copy()
-    #  During my initial run of the high_low, I was encountering issues with the
+    #  By switching the relationship from less than to greater than, the code to low_high
+    #  can be quickly switched over to perform the inverse operation.
     length = len(math_series)
     for i1 in range(length):
         for i2 in range(length):
@@ -79,14 +81,14 @@ def high_low(math_series):
 def div_by_three(math_series):
     proxy = math_series.copy()
     bythree = []
-    # Employ the remained operation to determine which numbers are divisible.
+    # Employ the remained operation to determine which numbers are divisible by using the remainder operation.
     for i in range(len(proxy)):
         if (proxy[i] % 3) == 0:
             bythree.append(proxy[i])
     if len(bythree) != 0:
         return bythree
     else:
-        # I set up the return as an if-else, just so that an empty array wouldn't be returned if only
+        # I set up the return as an if-else, just so that an empty array wouldn't be returned if solely
         # non-divisible variables were placed in the list.
         return "None"
 
@@ -101,8 +103,6 @@ def is_even(math_series):
     if len(even) != 0:
         return even
     else:
-        # I set up the return as an if-else, just so that an empty array wouldn't be returned if only
-        # non-divisible variables were placed in the list.
         return "None"
 
 
@@ -149,9 +149,13 @@ def retrieve_letter(lang_series, rword, rletter):
         rseries = 0
     while i < len(lang_series) and rseries != rword:
         b = i+1
+        #  I included a process to confirm that if there is simply a double space, the program does
+        #  not assume a new word has begun until it detects a non-space in the next position.
         if lang_series[i].isspace() and not lang_series[b].isspace():
             rseries = rseries + 1
         i = i+1
+    #  Now that the function has located the word in question, it will simply add the original character
+    #  listing to its index count to find the letter being sought.
     locale = i-1 + rletter
     return lang_series[locale]
 
