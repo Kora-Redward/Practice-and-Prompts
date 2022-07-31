@@ -1,3 +1,6 @@
+# Rawlin Redfield
+# 07-31-2022
+
 
 # Find the total sum of a series
 def total(math_series):
